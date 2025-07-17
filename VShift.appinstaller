@@ -1,12 +1,12 @@
 <AppInstaller
     xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
-    Version="1.0.0.0"
+    Version="1.0.0.1"
     InstallScope="user"
     Uri="https://miki-potato.github.io/Vshift-Product/VShift.appinstaller">
   <MainPackage
     Name="V-Shift"
     Publisher="CN=VShift"
-    Version="1.0.0.0"
+    Version="1.0.0.1"
     Uri="https://miki-potato.github.io/Vshift-Product/ShiftApp.msix" />
   <UpdateSettings>
     <OnLaunch />
