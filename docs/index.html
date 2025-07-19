@@ -2,41 +2,429 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>VShift インストーラー</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V-Shift - ダウンロード</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f9f9f9;
-      padding: 2em;
-      max-width: 600px;
-      margin: auto;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1 {
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      line-height: 1.6;
       color: #333;
     }
-    .button {
-      display: inline-block;
-      padding: 0.8em 1.2em;
-      background-color: #0078d7;
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: slideInDown 1s ease-out;
+    }
+    
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 2rem;
+      border-radius: 26px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: bounce 2s infinite alternate;
+    }
+    
+    .app-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3B82F6, #A855F7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    
+    .app-subtitle {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 300;
+    }
+    
+    .download-section {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      margin-bottom: 3rem;
+      animation: slideInUp 1s ease-out 0.3s both;
+    }
+    
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 2.5rem;
+      background: linear-gradient(135deg, #3B82F6, #6366F1);
       color: white;
       text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+      margin: 2rem auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .note {
-      margin-top: 1em;
-      font-size: 0.9em;
-      color: #666;
+    
+    .download-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .download-button:hover::before {
+      left: 100%;
+    }
+    
+    .download-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+    }
+    
+    .download-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    
+    .specs-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .spec-card {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+    
+    .spec-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .spec-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #3B82F6, #A855F7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .spec-table th,
+    .spec-table td {
+      padding: 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .spec-table th {
+      font-weight: 600;
+      color: #4B5563;
+      background: rgba(59, 130, 246, 0.05);
+    }
+    
+    .spec-table td {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+    
+    .info-section {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease-out 0.9s both;
+    }
+    
+    .info-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+    
+    .info-text {
+      color: #6B7280;
+      margin-bottom: 1rem;
+    }
+    
+    .github-link {
+      color: #3B82F6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .github-link:hover {
+      color: #A855F7;
+    }
+    
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes bounce {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .app-title {
+        font-size: 2.5rem;
+      }
+      
+      .specs-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .download-section,
+      .spec-card,
+      .info-section {
+        padding: 2rem 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>V-Shift インストーラー</h1>
-  <p>以下のボタンをクリックして、V-Shiftインストーラをダウンロードしてください。</p>
-  <p><a href="V-Shift.zip" class="button">ダウンロードする</a></p>
-  <p class="note">
-    インストール後、アプリは起動時に自動で更新を確認します。<br>
-    更新は <a href="https://github.com/miki-potato/Vshift-Product" target="_blank">GitHubリポジトリ</a> から取得されます。
-  </p>
+  <div class="container">
+    <div class="header">
+      <div class="app-icon">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- タイムライン軸用の縦グラデーション -->
+            <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:#A855F7;stop-opacity:0.8" />
+            </linearGradient>
+            
+            <!-- 上から下へのグラデーション（青→紫） -->
+            <linearGradient id="topBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#5B6EF5;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="midBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#5B6EF5;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#7C5AF4;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="midPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#7C5AF4;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#9946F3;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="bottomPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#9946F3;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          
+          <!-- 背景 -->
+          <rect width="120" height="120" rx="26" ry="26" fill="#1E293B"/>
+          
+          <!-- タイムライン -->
+          <rect x="17" y="15" width="7" height="90" rx="1.5" fill="url(#timelineGradient)"/>
+          <circle cx="20.5" cy="15" r="6" fill="#3B82F6"/>
+          <circle cx="20.5" cy="105" r="6" fill="#A855F7"/>
+          
+          <!-- シフトバー -->
+          <rect x="30" y="20" width="75" height="14" rx="7" fill="url(#topBlue)"/>
+          <rect x="30" y="42" width="60" height="14" rx="7" fill="url(#midBlue)"/>
+          <rect x="30" y="64" width="68" height="14" rx="7" fill="url(#midPurple)"/>
+          <rect x="30" y="86" width="50" height="14" rx="7" fill="url(#bottomPurple)"/>
+        </svg>
+      </div>
+      <h1 class="app-title">V-Shift</h1>
+      <p class="app-subtitle">効率的なシフト管理をあなたの手に</p>
+    </div>
+
+    <div class="download-section">
+      <div style="text-align: center;">
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #1F2937;">今すぐダウンロード</h2>
+        <p style="color: #6B7280; margin-bottom: 2rem;">最新版のV-Shiftをダウンロードして、シフト管理を始めましょう</p>
+        
+        <a href="V-Shift.zip" class="download-button">
+          <svg class="download-icon" viewBox="0 0 24 24">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+          </svg>
+          V-Shift をダウンロード
+        </a>
+        
+        <p style="color: #9CA3AF; font-size: 0.9rem; margin-top: 1rem;">
+          バージョン 1.0 • Windows 10/11 対応 • 無料
+        </p>
+      </div>
+    </div>
+
+    <div class="specs-section">
+      <div class="spec-card">
+        <h3 class="spec-title">最低動作環境</h3>
+        <table class="spec-table">
+          <tr>
+            <th>CPU</th>
+            <td>Intel Core i3-10100U<br>AMD Ryzen 3 3200U 以上</td>
+          </tr>
+          <tr>
+            <th>メモリ</th>
+            <td>8GB</td>
+          </tr>
+          <tr>
+            <th>ストレージ</th>
+            <td>SSD 128GB（空き20GB）</td>
+          </tr>
+          <tr>
+            <th>GPU</th>
+            <td>Intel UHD/AMD Vega（内蔵でOK）</td>
+          </tr>
+          <tr>
+            <th>ディスプレイ</th>
+            <td>1366×768</td>
+          </tr>
+          <tr>
+            <th>OS</th>
+            <td>Windows 10 64bit（21H2以降）</td>
+          </tr>
+          <tr>
+            <th>.NET</th>
+            <td>.NET Framework 4.8</td>
+          </tr>
+          <tr>
+            <th>Excel</th>
+            <td>2016以降</td>
+          </tr>
+          <tr>
+            <th>ネットワーク</th>
+            <td>有線/無線LAN</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="spec-card">
+        <h3 class="spec-title">推奨動作環境</h3>
+        <table class="spec-table">
+          <tr>
+            <th>CPU</th>
+            <td>Intel Core i5-1135G7<br>AMD Ryzen 5 4500U 以上</td>
+          </tr>
+          <tr>
+            <th>メモリ</th>
+            <td>16GB</td>
+          </tr>
+          <tr>
+            <th>ストレージ</th>
+            <td>SSD 256GB（空き50GB）</td>
+          </tr>
+          <tr>
+            <th>GPU</th>
+            <td>Intel Iris Xe/AMD Vega 8 以上</td>
+          </tr>
+          <tr>
+            <th>ディスプレイ</th>
+            <td>1920×1080（FHD）</td>
+          </tr>
+          <tr>
+            <th>OS</th>
+            <td>Windows 11 64bit</td>
+          </tr>
+          <tr>
+            <th>.NET</th>
+            <td>.NET Framework 4.8</td>
+          </tr>
+          <tr>
+            <th>Excel</th>
+            <td>2019/365</td>
+          </tr>
+          <tr>
+            <th>ネットワーク</th>
+            <td>有線LAN推奨</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3 class="info-title">アップデート通知機能</h3>
+      <p class="info-text">
+        V-Shiftは新しいバージョンが利用可能になると、アプリ内のお知らせ機能で通知いたします。
+        アップデート通知が届いた場合は、このページから最新版のインストーラをダウンロードして再インストールを行ってください。
+      </p>
+      <p class="info-text">
+        再インストール時にデータが消失することはありません。既存のデータは安全に保持されます。
+      </p>
+    </div>
+  </div>
 </body>
 </html>
