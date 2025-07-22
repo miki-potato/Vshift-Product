@@ -1,0 +1,14 @@
+V-Shift.zip
+C:\Users\7221m\GitProjects\ShiftApp-VER30\formApp-schedule1\bin\Debug
+app.publishを除く
+
+V-Shift-Installer.zip
+V-Shift　ー＞　発行　ー＞　ファイルをzipに
+
+Announcements
+ファイル名：Announce?.json
+{
+  "title": "",
+  "body": "",
+  "imageUrl": ""
+}
