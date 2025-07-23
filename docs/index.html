@@ -294,6 +294,22 @@
     .github-link:hover {
       color: #A855F7;
     }
+
+    .download-button.disabled {
+      background: #9CA3AF !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      opacity: 0.6;
+    }
+    
+    .download-button.disabled:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    
+    .download-button.disabled:hover::before {
+      left: -100% !important;
+    }
     
     @keyframes slideInDown {
       from {
@@ -415,12 +431,75 @@
     </header>
 
     <main>
-      <section class="download-section">
+<section class="download-section">
         <div style="text-align: center;">
           <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #1F2937;">今すぐダウンロード</h2>
           <p style="color: #6B7280; margin-bottom: 2rem;">最新版のV-Shiftをダウンロードして、シフト管理を始めましょう</p>
           
-          <a href="V-Shift-Installer.zip" class="download-button" download="V-Shift-Installer.zip" aria-label="V-Shiftインストーラをダウンロード">
+          <!-- 利用規約セクション -->
+          <div id="terms-section" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(59, 130, 246, 0.05); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+              <button id="terms-toggle" onclick="toggleTerms()" style="background: none; border: none; color: #3B82F6; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 1rem;">
+                <svg id="terms-arrow" style="width: 16px; height: 16px; transition: transform 0.3s ease;" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                </svg>
+                利用規約を確認する
+              </button>
+            </div>
+            
+            <div id="terms-content" style="display: none; text-align: left; max-height: 300px; overflow-y: auto; padding: 1rem; background: white; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.6; color: #374151;">
+              <h4 style="font-weight: 700; margin-bottom: 1rem; color: #1F2937;">シフト管理アプリ 利用規約（2025年7月版）</h4>
+              <p style="margin-bottom: 1rem;">この利用規約（以下「本規約」といいます）は、介護施設におけるシフト管理を目的として提供される本アプリ（以下「本アプリ」といいます）の利用条件を定めるものです。各導入施設は、本規約の内容に同意した上で、本アプリを適切に運用するものとします。</p>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第1条（利用目的と対象）</h5>
+              <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                <li>本アプリは、施設職員の勤務スケジュール作成・管理・閲覧を簡便化するために提供されるものです。</li>
+                <li>利用は、導入を承認された介護施設に限り、原則として施設単位での運用を想定しています。</li>
+              </ul>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第2条（情報管理と責任）</h5>
+              <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                <li>本アプリに登録される情報（シフト内容・職員名など）は、施設側の責任において、できる限り正確に管理・入力してください。</li>
+                <li>アカウント情報や端末管理も、各施設の判断と責任により適切に運用をお願いします。</li>
+              </ul>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第3条（ご利用にあたってのお願い）</h5>
+              <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                <li>本アプリは、業務を円滑に行うためのツールです。以下のような行為は避け、適正な利用にご協力ください。</li>
+                <li>故意に誤った情報を登録すること</li>
+                <li>業務に支障をきたす使い方（例：紛らわしい入力、共有端末の操作混乱など）</li>
+              </ul>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第4条（免責事項）</h5>
+              <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                <li>本アプリの運用には十分な注意を払っていますが、技術的な不具合、通信障害、予期せぬ事象などにより、データ損失・漏洩が発生する可能性があります。</li>
+                <li>これらに伴う損害について、開発者および運営側は一切の責任を負いかねます。ご理解の上でご利用ください。</li>
+              </ul>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第5条（規約の変更）</h5>
+              <p style="margin-bottom: 1rem;">本規約は必要に応じて内容を変更することがあります。変更があった際は、速やかに通知し、施設側にて内容を確認・継続利用することをお願いします。</p>
+              
+              <h5 style="font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: #374151;">第6条（不具合の報告と対応）</h5>
+              <p style="margin-bottom: 1rem;">本アプリのご利用に際して、不具合や動作異常等が確認された場合は、可能な範囲でその内容を施設管理者へご報告ください。ご報告いただいた内容は、今後の改善や修正に活用させていただく場合があります。</p>
+              
+              <p style="margin-top: 1.5rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 6px; font-weight: 600;">
+                ※本アプリは介護施設のシフト管理業務を支援するツールです。適切にご利用ください。
+              </p>
+            </div>
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+              <input type="checkbox" id="terms-agree" onchange="toggleDownloadButtons()" style="width: 18px; height: 18px; cursor: pointer;">
+              <label for="terms-agree" style="color: #374151; font-weight: 500; cursor: pointer;">利用規約に同意します</label>
+            </div>
+            
+            <p style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 6px; font-weight: 500; font-size: 0.9rem; color: #374151; text-align: center;">
+              本アプリのダウンロードをもって、上記規約に同意いただいたものとみなします。<br>
+              不明点や運用に関するご相談は、各施設管理者を通じてお問い合わせください。
+            </p>
+          </div>
+          
+          <a href="V-Shift-Installer.zip" id="main-download-btn" class="download-button disabled" download="V-Shift-Installer.zip" 
+             aria-label="V-Shiftインストーラをダウンロード" onclick="return checkTermsAgreement(event)">
             <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
             </svg>
@@ -439,9 +518,9 @@
               V-Shiftにインポート可能なエクセルシフト表の入力形式テンプレートをダウンロード
             </p>
             
-            <a href="エクセルシフト表＿入力形式.xlsx" class="download-button" download="エクセルシフト表_入力形式.xlsx" 
+            <a href="エクセルシフト表＿入力形式.xlsx" id="template-download-btn" class="download-button disabled" download="エクセルシフト表_入力形式.xlsx" 
                style="font-size: 1rem; padding: 1rem 2rem; background: linear-gradient(135deg, #059669, #10B981); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);"
-               aria-label="エクセルシフト表テンプレートをダウンロード">
+               aria-label="エクセルシフト表テンプレートをダウンロード" onclick="return checkTermsAgreement(event)">
               <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;">
                 <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
               </svg>
@@ -607,6 +686,49 @@
       }
     ]
   }
+  </script>
+  <script>
+    function toggleTerms() {
+      const content = document.getElementById('terms-content');
+      const arrow = document.getElementById('terms-arrow');
+      
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        arrow.style.transform = 'rotate(90deg)';
+      } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+    
+    function toggleDownloadButtons() {
+      const checkbox = document.getElementById('terms-agree');
+      const mainBtn = document.getElementById('main-download-btn');
+      const templateBtn = document.getElementById('template-download-btn');
+      
+      if (checkbox.checked) {
+        mainBtn.classList.remove('disabled');
+        templateBtn.classList.remove('disabled');
+      } else {
+        mainBtn.classList.add('disabled');
+        templateBtn.classList.add('disabled');
+      }
+    }
+    
+    function checkTermsAgreement(event) {
+      const checkbox = document.getElementById('terms-agree');
+      if (!checkbox.checked) {
+        event.preventDefault();
+        alert('利用規約に同意してからダウンロードしてください。');
+        return false;
+      }
+      return true;
+    }
+    
+    // ページ読み込み時に初期状態を設定
+    document.addEventListener('DOMContentLoaded', function() {
+      toggleDownloadButtons();
+    });
   </script>
 </body>
 </html>
