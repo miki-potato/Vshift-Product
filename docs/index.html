@@ -167,6 +167,59 @@
       height: 24px;
       fill: currentColor;
     }
+
+    .download-button.disabled {
+      background: #9CA3AF !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      opacity: 0.6;
+    }
+    
+    .download-button.disabled:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    
+    .download-button.disabled:hover::before {
+      left: -100% !important;
+    }
+    
+    .template-download-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1.5rem;
+      background: #F3F4F6;
+      color: #4B5563;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 1rem auto;
+      text-align: center;
+      border: 1px solid #E5E7EB;
+    }
+    
+    .template-download-button:hover:not(.disabled) {
+      background: #E5E7EB;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    
+    .template-download-button.disabled {
+      background: #F9FAFB !important;
+      color: #9CA3AF !important;
+      cursor: not-allowed !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05) !important;
+      opacity: 0.6;
+    }
+    
+    .template-download-button.disabled:hover {
+      transform: none !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05) !important;
+    }
     
     .features-section {
       background: rgba(255,255,255,0.9);
@@ -293,22 +346,6 @@
     
     .github-link:hover {
       color: #A855F7;
-    }
-
-    .download-button.disabled {
-      background: #9CA3AF !important;
-      cursor: not-allowed !important;
-      box-shadow: none !important;
-      opacity: 0.6;
-    }
-    
-    .download-button.disabled:hover {
-      transform: none !important;
-      box-shadow: none !important;
-    }
-    
-    .download-button.disabled:hover::before {
-      left: -100% !important;
     }
     
     @keyframes slideInDown {
@@ -518,8 +555,7 @@
               V-Shiftにインポート可能なエクセルシフト表の入力形式テンプレートをダウンロード
             </p>
             
-            <a href="エクセルシフト表＿入力形式.xlsx" id="template-download-btn" class="download-button disabled" download="エクセルシフト表_入力形式.xlsx" 
-               style="font-size: 1rem; padding: 1rem 2rem; background: linear-gradient(135deg, #059669, #10B981); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);"
+            <a href="エクセルシフト表＿入力形式.xlsx" id="template-download-btn" class="template-download-button disabled" download="エクセルシフト表_入力形式.xlsx" 
                aria-label="エクセルシフト表テンプレートをダウンロード" onclick="return checkTermsAgreement(event)">
               <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;">
                 <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
