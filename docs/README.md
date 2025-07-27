@@ -1,1 +1,1 @@
-[My Tutorial Page](https://miki-potato.github.io/Vshift-Product/index.html)
+[V-Shift Install Page](https://miki-potato.github.io/Vshift-Product/index.html)
