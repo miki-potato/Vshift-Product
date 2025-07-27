@@ -587,6 +587,15 @@
     }
   </style>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z98T65LMHK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z98T65LMHK');
+</script>
 <body>
   <!-- Floating Particles -->
   <div class="floating-particles">
@@ -844,6 +853,25 @@
         alert('利用規約に同意してからダウンロードしてください。');
         return false;
       }
+      
+      // ダウンロードイベントをトラッキング
+      const buttonId = event.currentTarget.id;
+      let downloadType = '';
+      
+      if (buttonId === 'main-download-btn') {
+        downloadType = 'V-Shift_Installer';
+      } else if (buttonId === 'template-download-btn') {
+        downloadType = 'Excel_Template';
+      }
+      
+      // GA4にイベント送信
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'download', {
+          'event_category': 'engagement',
+          'event_label': downloadType
+        });
+      }
+      
       return true;
     }
     
