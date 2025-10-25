@@ -1,0 +1,9 @@
+{
+  "Title": "HTMLお知らせ機能のリリース",
+  "Body": "従来のテキスト形式のお知らせに加えて、HTMLファイルを使用したリッチなお知らせが可能になりました。",
+  "ImageUrl": "",
+  "HtmlUrl": "sample_announce.html",
+  "CssUrl": "sample_announce.css",
+  "IsHtmlContent": true,
+  "Date": "2024-01-15T10:00:00Z"
+}
