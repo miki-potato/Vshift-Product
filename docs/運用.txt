@@ -12,3 +12,80 @@ Announcements
   "body": "",
   "imageUrl": ""
 }
+
+
+
+Updater の sha256 運用手順（必須）
+実装は version.json に sha256 が無いと更新を中断します。
+A. ZIPを作成したらハッシュ計算
+(Get-FileHash "C:\path\to\V-Shift.zip" -Algorithm SHA256).Hash.ToLower()
+B. version.json を更新
+想定フォーマット:
+{  "version": "1.0.39",  "sha256": "ここに64桁のsha256(小文字推奨)",  "zipUrl": "https://github.com/miki-potato/Vshift-Product/releases/download/v1.0.39/V-Shift.zip"}
+version: 必須
+sha256: 必須
+zipUrl: 任意（無ければコード内既定URLを使用）
+C. リリース時の順序
+ZIP作成
+SHA-256計算
+GitHub ReleaseへZIPアップ
+version.json の version/sha256/zipUrl 更新・公開
+実機で更新テスト
+
+
+
+---
+リリース前手順書（V-Shift）
+0. 前提
+旧App Passwordは失効済み（完了）
+新App Passwordを手元に控えている
+ログ送信用
+フィードバック送信用
+2. SMTP秘密情報の設定（必須）
+2-1. まず PowerShell を開く（通常権限でOK）
+以下をそのまま実行（"内は実値に置換）:
+[Environment]::SetEnvironmentVariable("VSHIFT_LOG_SMTP_PASSWORD","tewaezhxtiitcfaq","User")
+[Environment]::SetEnvironmentVariable("VSHIFT_FEEDBACK_SMTP_PASSWORD","hbbtnzahrbrsagpe","User")
+2-2. 設定確認
+[Environment]::GetEnvironmentVariable("VSHIFT_LOG_SMTP_PASSWORD","User")
+[Environment]::GetEnvironmentVariable("VSHIFT_FEEDBACK_SMTP_PASSWORD","User")
+何か文字列が返ればOK（値そのものは人前で表示しない）
+2-3. 反映
+V-Shiftを完全終了→再起動
+> これでアプリは環境変数からSMTPパスワードを読みます。
+3. アプリ内の送信動作チェック（必須）
+3-1. フィードバック送信テスト
+フィードバック画面から短文を1件送る
+送信成功ダイアログが出ることを確認
+3-2. ログ自動送信テスト
+アプリを起動して数分操作
+アプリ終了時に送信が失敗しないこと（デバッグログ等で確認）
+4. Upater用 version.json 更新（必須）
+4-1. ZIP作成後にSHA-256を計算
+(Get-FileHash "C:\Users\7221m\GitProjects\Vshift-Product\docs\V-Shift.zip" -Algorithm SHA256).Hash.ToLower()
+(Get-FileHash "C:\Users\7221m\GitProjects\Vshift-Product\docs\V-ShiftBeta.zip" -Algorithm SHA256).Hash.ToLower()
+4-2. version.json を以下形式に更新
+{
+  "version": "1.0.38",  
+  "sha256": "64桁のsha256",  
+  "zipUrl": "https://github.com/miki-potato/Vshift-Product/releases/download/v1.0.38/V-Shift.zip"
+}
+{
+  "version": "1.1.38",  
+  "sha256": "64桁のsha256",  
+  "zipUrl": "https://github.com/miki-potato/Vshift-Product/releases/download/v1.1.38/V-ShiftBeta.zip"
+}
+4-3. 反映テスト
+1台でアップデート実行
+正常更新されることを確認
+5. OSM検証の確認（推奨）
+OSMダウンロード機能を1回実行
+正常に取得できることを確認
+（.sha256 or .md5 が取得できない環境だと中断される仕様）
+6. 最終セキュリティ確認（必須）
+リポジトリルートで実行:
+rg "jwpahclvhppsasog|hbcugtgabrbvlahv|NetworkCredential\(\".*\", \""
+該当なしならOK（ハードコード漏れなし）
+7. ビルド確認（必須）
+& "C:\Program Files\Microsoft Visual Studio\18\Insiders\MSBuild\Current\Bin\MSBuild.exe" "C:\Users\7221m\GitProjects\ShiftApp-VER30\formApp-schedule1\Main.csproj" /p:Configuration=Debug
+Build succeeded を確認
